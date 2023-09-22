@@ -1,0 +1,4 @@
+services:
+  test:
+    env_file:
+      - ./.devcontainer/level_1/level_1.env

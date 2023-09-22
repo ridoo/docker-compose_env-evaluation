@@ -1,8 +1,6 @@
-version: '3.9'
-
 services:
   test:
     image: 'node:6-alpine'
     env_file:
-     - level_0.env
+      - ./.devcontainer/level_2/level_2.env
     entrypoint: ["env"]
