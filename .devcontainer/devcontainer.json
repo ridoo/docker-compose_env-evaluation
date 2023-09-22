@@ -1,0 +1,10 @@
+{
+	"name": "Debug Docker Compose",
+
+	"dockerComposeFile": [
+		"../docker-compose.yml",
+		"./level_1/docker-compose.yml",
+    "./level_2/docker-compose.yml"
+	]
+  
+}
