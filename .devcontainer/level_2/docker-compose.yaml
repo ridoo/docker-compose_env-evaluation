@@ -1,6 +1,5 @@
 services:
   test:
-    image: 'node:6-alpine'
     env_file:
       - ./.devcontainer/level_2/level_2.env
-    entrypoint: ["env"]
+    entrypoint: ["/bin/sh"]
