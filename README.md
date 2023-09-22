@@ -77,14 +77,14 @@ export ENV_LEVEL=shell ; docker compose config
 Docker compose offers to chain multiple `docker-compose.yaml` configurations.
 Here, [level 1](./devcontainer/level_1) and [level 2](./.devcontainer/level_2) are use to show what happens when configuration gets chained.
 
-`level_1/level_1.env`
+`./.devcontainer/level_1/level_1.env`
 ```sh
 ENV_LEVEL=level_1
 # stays the same, as ENV_LEVEL is taken from preceding level
 #REPLACEMENT="env level: ${ENV_LEVEL}"
 ```
 
-Run `docker-compose -f docker-compose.yaml -f level_1/docker-compose.yaml config`:
+Run `docker-compose -f docker-compose.yaml -f ./.devcontainer/level_1/docker-compose.yaml config`:
 
 ```sh
 environment:
@@ -101,22 +101,22 @@ Also, even if uncommented, it also would stay the same as `ENV_LEVEL` from the p
 > [Shell variables have higher weight](https://docs.docker.com/compose/environment-variables/envvars-precedence/) than variables declared in `.env` or `evironment` variables.
 
 
-Now, comment out `ENV_LEVEL` from `level_0.env` and re-run `docker-compose -f docker-compose.yaml -f level_1/docker-compose.yaml config`.
+Now, comment out `ENV_LEVEL` from `level_0.env` and re-run `docker-compose -f docker-compose.yaml -f ./.devcontainer/level_1/docker-compose.yaml config`.
 You will receive a warning `WARN[0000] The "ENV_LEVEL" variable is not set. Defaulting to a blank string.`
 Pretty obvious, as the variable is not declared anymore.
-Commenting in `REPLACEMENT="env level: ${ENV_LEVEL}"` in `level_1/level_1.env` will re-evaluate `REPLACEMENT` again with the variable found within the same file.
+Commenting in `REPLACEMENT="env level: ${ENV_LEVEL}"` in `./.devcontainer/level_1/level_1.env` will re-evaluate `REPLACEMENT` again with the variable found within the same file.
 
 
 Now, have a look at
 
-`level_2/level_2.env`
+`./.devcontainer/level_2/level_2.env`
 ```sh
 ENV_LEVEL=level_2
 # re-evaluates with ENV_LEVEL from preceding level
 REPLACEMENT="env level: ${ENV_LEVEL}"
 ```
 
-Run `docker-compose -f docker-compose.yaml -f level_1/docker-compose.yaml -f level_2/docker-compose.yaml config`:
+Run `docker-compose -f docker-compose.yaml -f ./.devcontainer/level_1/docker-compose.yaml -f ./.devcontainer/level_2/docker-compose.yaml config`:
 
 ```sh
 environment:
